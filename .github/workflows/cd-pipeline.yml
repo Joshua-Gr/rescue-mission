@@ -6,7 +6,7 @@ on:
             -   master
         paths-ignore: 
             -   charts/
-            -   */pom.xml
+            -   '**/pom.xml'
 
 jobs:
     deploy:
