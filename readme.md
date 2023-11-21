@@ -2,38 +2,38 @@
 
 To create the files in this git repo we've already run `mvn archetype:generate` from http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
     
-    mvn archetype:generate -DgroupId=com.myapp.app -DartifactId=myapp -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+    mvn archetype:generate -DgroupId=com.myapp -DartifactId=myapp -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
 
 Now, to print "Hello World!", type either...
 
     cd myapp
     mvn compile
-    java -cp target/classes com.myapp.app.App
+    java -cp target/classes com.myapp.App
 
 or...
 
     cd myapp
     mvn package
-    java -cp target/myapp-1.0-SNAPSHOT.jar com.myapp.app.App
+    java -cp target/myapp-1.0-SNAPSHOT.jar com.myapp.App
 
 Running `mvn clean` will get us back to only the source Java and the `pom.xml`:
 
     murphy:myapp pdurbin$ mvn clean --quiet
     murphy:myapp pdurbin$ ack -a -f
     pom.xml
-    src/main/java/com/myapp/app/App.java
-    src/test/java/com/myapp/app/AppTest.java
+    src/main/java/com/myapp/App.java
+    src/test/java/com/myapp/AppTest.java
 
 Running `mvn compile` produces a class file:
 
     murphy:myapp pdurbin$ mvn compile --quiet
     murphy:myapp pdurbin$ ack -a -f
     pom.xml
-    src/main/java/com/myapp/app/App.java
-    src/test/java/com/myapp/app/AppTest.java
-    target/classes/com/myapp/app/App.class
+    src/main/java/com/myapp/App.java
+    src/test/java/com/myapp/AppTest.java
+    target/classes/com/myapp/App.class
     murphy:myapp pdurbin$ 
-    murphy:myapp pdurbin$ java -cp target/classes com.myapp.app.App
+    murphy:myapp pdurbin$ java -cp target/classes com.myapp.App
     Hello World!
 
 Running `mvn package` does a compile and creates the target directory, including a jar:
@@ -42,16 +42,16 @@ Running `mvn package` does a compile and creates the target directory, including
     murphy:myapp pdurbin$ mvn package > /dev/null
     murphy:myapp pdurbin$ ack -a -f
     pom.xml
-    src/main/java/com/myapp/app/App.java
-    src/test/java/com/myapp/app/AppTest.java
-    target/classes/com/myapp/app/App.class
+    src/main/java/com/myapp/App.java
+    src/test/java/com/myapp/AppTest.java
+    target/classes/com/myapp/App.class
     target/maven-archiver/pom.properties
     target/myapp-1.0-SNAPSHOT.jar
-    target/surefire-reports/com.myapp.app.AppTest.txt
-    target/surefire-reports/TEST-com.myapp.app.AppTest.xml
-    target/test-classes/com/myapp/app/AppTest.class
+    target/surefire-reports/com.myapp.AppTest.txt
+    target/surefire-reports/TEST-com.myapp.AppTest.xml
+    target/test-classes/com/myapp/AppTest.class
     murphy:myapp pdurbin$ 
-    murphy:myapp pdurbin$ java -cp target/myapp-1.0-SNAPSHOT.jar com.myapp.app.App
+    murphy:myapp pdurbin$ java -cp target/myapp-1.0-SNAPSHOT.jar com.myapp.App
     Hello World!
 
 Running `mvn clean compile exec:java` requires http://mojo.codehaus.org/exec-maven-plugin/
@@ -85,14 +85,12 @@ The Maven’s jar plugin will create jar file and we need to define the main cla
     │   └── java
     │       └── com
     │           └── myapp
-    │               └── app
-    │                   └── App.java
+    │               └── App.java
     └── test
         └── java
             └── com
                 └── myapp
-                    └── app
-                        └── AppTest.java
+                    └── AppTest.java
 
 ```
 # Folder tree after package:
@@ -105,20 +103,17 @@ The Maven’s jar plugin will create jar file and we need to define the main cla
 │   │   └── java
 │   │       └── com
 │   │           └── myapp
-│   │               └── app
-│   │                   └── App.java
+│   │               └── App.java
 │   └── test
 │       └── java
 │           └── com
 │               └── myapp
-│                   └── app
-│                       └── AppTest.java
+│                   └── AppTest.java
 └── target
     ├── classes
     │   └── com
     │       └── myapp
-    │           └── app
-    │               └── App.class
+    │           └── App.class
     ├── generated-sources
     │   └── annotations
     ├── generated-test-sources
@@ -137,11 +132,10 @@ The Maven’s jar plugin will create jar file and we need to define the main cla
     │               └── inputFiles.lst
     ├── myapp-1.0-SNAPSHOT.jar
     ├── surefire-reports
-    │   ├── com.myapp.app.AppTest.txt
-    │   └── TEST-com.myapp.app.AppTest.xml
+    │   ├── com.myapp.AppTest.txt
+    │   └── TEST-com.myapp.AppTest.xml
     └── test-classes
         └── com
             └── myapp
-                └── app
-                    └── AppTest.class
+                └── AppTest.class
 ```
