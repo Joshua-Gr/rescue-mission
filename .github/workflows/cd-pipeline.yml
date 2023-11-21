@@ -25,9 +25,11 @@ jobs:
                     username: ${{ secrets.DOCKERHUB_USERNAME }}
                     password: ${{ secrets.DOCKERHUB_TOKEN }}            
             -   name: Bump patch version
+                working-directory: ./myapp
                 run: |
                     mvn build-helper:parse-version versions:set -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}
             -   name: Get new version
+                working-directory: ./myapp
                 run: APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
             -   name: Build and push
                 uses: docker/build-push-action@v5
