@@ -39,7 +39,7 @@ jobs:
                     tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ steps.app-version.outputs.APP_VERSION }}
             -   name: Update chart version
                 run: |
-                    echo "TBD"
+                    sed -i 's,tag:.*,tag: "${{ steps.app-version.outputs.APP_VERSION }}",g' charts/*/values.yaml
             -   name: Commit local changes
                 uses: cpina/github-action-push-to-another-repository@main
                 env:
