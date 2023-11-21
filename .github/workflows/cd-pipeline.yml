@@ -5,7 +5,7 @@ on:
         branches: 
             -   master
         paths-ignore: 
-            -   charts/
+            -   'charts/**'
             -   '**/pom.xml'
 
 jobs:
