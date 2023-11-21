@@ -34,11 +34,9 @@ jobs:
                 run: echo "APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
             -   name: Build and push
                 uses: docker/build-push-action@v5
-                env:
-                    APP_VERSION: ${{ steps.app-version.outputs.APP_VERSION }}
                 with:
                     push: true
-                    tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:$APP_VERSION
+                    tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ steps.app-version.outputs.APP_VERSION }}
             -   name: Update chart version
                 run: |
                     echo "TBD"
