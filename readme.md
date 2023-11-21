@@ -31,7 +31,7 @@ Running `mvn compile` produces a class file:
     pom.xml
     src/main/java/com/myapp/App.java
     src/test/java/com/myapp/AppTest.java
-    target/classes/com/myapp/app/App.class
+    target/classes/com/myapp/App.class
     murphy:myapp pdurbin$ 
     murphy:myapp pdurbin$ java -cp target/classes com.myapp.App
     Hello World!
@@ -44,7 +44,7 @@ Running `mvn package` does a compile and creates the target directory, including
     pom.xml
     src/main/java/com/myapp/App.java
     src/test/java/com/myapp/AppTest.java
-    target/classes/com/myapp/app/App.class
+    target/classes/com/myapp/App.class
     target/maven-archiver/pom.properties
     target/myapp-1.0-SNAPSHOT.jar
     target/surefire-reports/com.myapp.AppTest.txt
@@ -85,7 +85,7 @@ The Maven’s jar plugin will create jar file and we need to define the main cla
     │   └── java
     │       └── com
     │           └── myapp
-│                   └── App.java
+    │               └── App.java
     └── test
         └── java
             └── com
