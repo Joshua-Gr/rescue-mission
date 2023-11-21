@@ -1,0 +1,50 @@
+name: CD Pipeline
+
+on: 
+    push: 
+        branches: 
+            -   master
+        paths-ignore: 
+            -   charts/
+            -   '**/pom.xml'
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v4
+            -   name: Setup Maven Action
+                uses: s4u/setup-maven-action@v1.10.0
+            -   name: Set up QEMU
+                uses: docker/setup-qemu-action@v2
+            -   name: Set up Docker Buildx
+                uses: docker/setup-buildx-action@v2
+            -   name: Login to Docker Hub
+                uses: docker/login-action@v2
+                with:
+                    username: ${{ secrets.DOCKERHUB_USERNAME }}
+                    password: ${{ secrets.DOCKERHUB_TOKEN }}            
+            -   name: Bump patch version
+                run: |
+                    mvn build-helper:parse-version versions:set -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}
+            -   name: Get new version
+                run: APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+            -   name: Build and push
+                uses: docker/build-push-action@v5
+                with:
+                    push: true
+                    tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:$APP_VERSION
+            -   name: Update chart version
+                run: |
+                    echo "TBD"
+            -   name: Commit local changes
+                uses: cpina/github-action-push-to-another-repository@main
+                env:
+                    SSH_DEPLOY_KEY: ${{ secrets.REPO_KEY }}
+                with:
+                    source-directory: '.'
+                    destination-repository-name: ${{ github.event.repository.name }}
+                    target-branch: ${{ github.ref_name }}
+                    destination-github-username: 'Joshua-Gr'
+                    user-email: you@example.com
+    
